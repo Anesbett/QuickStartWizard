@@ -1,12 +1,12 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
+  background-color: #9cb4e1;
   margin: 0;
   padding: 20px;
 }
 h1 {
   text-align: center;
-  color: #333;
+  color: #ffffff;
 }
 form {
   max-width: 400px;
@@ -46,4 +46,55 @@ button:hover {
   margin-top: 20px;
   text-align: center;
   font-size: 16px;
+  color: white;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Checkmark animation */
+@keyframes checkmark {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.checkmark {
+  width: 30px;
+  height: 30px;
+  margin: 10px auto;
+  border-radius: 50%;
+  display: none;
+  animation: checkmark 0.3s ease-in-out;
+}
+
+.checkmark::after {
+  content: "\2713"; /* Unicode checkmark character */
+  font-size: 75px;
+  color: #1ded06;
+  display: block;
+  text-align: center;
+  line-height: 75px;
 }

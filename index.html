@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <title>Quick Start Wizard</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-gzrLfUT98ZsMUnQ7f64jW9rB2e/POsEdvU5SA2QHsWgX0VpWQoaVHg/cnf1KX7r7K5IUtj5Z9zjCK0xJ9obxpw=="
+      crossorigin="anonymous"
+    />
   </head>
   <body>
     <h1>Quick Start Wizard</h1>
@@ -13,41 +19,8 @@
       <button type="submit">Create Project</button>
     </form>
     <div id="result"></div>
+    <div class="checkmark" id="checkmark"></div>
 
-    <script>
-      document
-        .getElementById("projectForm")
-        .addEventListener("submit", async function (event) {
-          event.preventDefault();
-          const projectName = document.getElementById("projectName").value;
-
-          const response = await fetch("/checkProjectName", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ projectName: projectName }),
-          });
-
-          const result = await response.json();
-
-          if (result.isAvailable) {
-            // Proceed to create resources
-            const createResponse = await fetch("/createResources", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ projectName: projectName }),
-            });
-
-            const createResult = await createResponse.json();
-            document.getElementById("result").innerText = createResult.message;
-          } else {
-            document.getElementById("result").innerText =
-              "Project name is already taken.";
-          }
-        });
-    </script>
+    <script src="main.js"></script>
   </body>
 </html>
