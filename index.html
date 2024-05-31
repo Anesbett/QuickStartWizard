@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quick Start Wizard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Quick Start Wizard</h1>
+    <form id="projectForm">
+      <label for="projectName">Project Name:</label>
+      <input type="text" id="projectName" name="projectName" required />
+      <button type="submit">Create Project</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+      document
+        .getElementById("projectForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+          const projectName = document.getElementById("projectName").value;
+
+          const response = await fetch("/checkProjectName", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ projectName: projectName }),
+          });
+
+          const result = await response.json();
+
+          if (result.isAvailable) {
+            // Proceed to create resources
+            const createResponse = await fetch("/createResources", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ projectName: projectName }),
+            });
+
+            const createResult = await createResponse.json();
+            document.getElementById("result").innerText = createResult.message;
+          } else {
+            document.getElementById("result").innerText =
+              "Project name is already taken.";
+          }
+        });
+    </script>
+  </body>
+</html>
